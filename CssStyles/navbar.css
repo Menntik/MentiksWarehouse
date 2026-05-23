@@ -1,0 +1,130 @@
+/* Reset */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+ul { list-style: none; }
+a { text-decoration: none; }
+
+/* Base styles */
+body { font-family: "Roboto Mono", monospace; background: #000; color: #fff; }
+
+/* ================= NAVBARS ================= */
+.navbar {
+  text-transform: capitalize;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #0A0A0A;
+  padding: 10px 20px;
+}
+
+/* ---------- TOP NAVBAR ---------- */
+.top-nav { position: relative; }
+
+/*LINKS*/
+.nav-links {
+  display: flex;
+  gap: px;
+}
+
+/*LOGO*/
+.logo {
+  font-family: "Orbitron", sans-serif;
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #E0FF00;
+  text-shadow: 0 0 5px #E0FF00, 0 0 10px #FF7F00;
+}
+
+/* Link styles */
+.nav-links a {
+  color: #E0FF00;
+  font-weight: bold;
+  padding: 6px 10px;
+  text-shadow: 0 0 5px #E0FF00, 0 0 10px #FF7F00;
+  transition: 0.2s ease;
+}
+.nav-links a:hover {
+  color: #FF7F00;
+  text-shadow: 0 0 5px #FF7F00, 0 0 10px #FF007F;
+  transform: translateY(-2px);
+}
+
+/* ================= HAMBURGER ================= */
+.hamburger {
+  display: none;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  margin-left: auto;
+}
+.hamburger-line {
+  display: block;
+  width: 28px;
+  height: 3px;
+  background: #E0FF00;  /* neon yellow base */
+  margin: 5px 0;
+  transition: transform 0.25s ease, opacity 0.25s ease;
+
+  /* neon glow effect */
+  box-shadow: 
+    0 0 5px #E0FF00,
+    0 0 10px #FF7F00,
+    0 0 15px #FF007F;
+}
+
+.hamburger.active .hamburger-line:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+.hamburger.active .hamburger-line:nth-child(2) {
+  opacity: 0;
+}
+.hamburger.active .hamburger-line:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
+}
+
+/* ================= MOBILE ================= */
+@media (max-width: 930px) {
+  /* show hamburger */
+  .hamburger {
+    display: block;
+    z-index: 1201; /* keep above everything */
+  }
+
+  /* slide-in menu (hidden off-screen on the right) */
+  .nav-links {
+    position: fixed;        /* fixed to viewport so it always covers the screen side */
+    top: 0;
+    right: -100%;           /* start hidden to the right */
+    width: 80%;
+    max-width: 420px;
+    height: 100vh;
+    background: #0A0A0A;
+    display: flex;
+    flex-direction: column;
+    align-items: center;    /* center horizontally inside panel */
+    justify-content: center;/* center vertically inside panel */
+    gap: 20px;
+    padding-top: 0;
+    transition: right 0.32s ease;
+    box-shadow: -4px 0 20px rgba(0,0,0,0.5);
+    z-index: 1200;          /* below hamburger but above page content */
+  }
+
+  /* visible state: slide in from the right */
+  .nav-links.active {
+    right: 0;
+  }
+
+  /* menu items */
+  .nav-links li {
+    width: 100%;
+  }
+
+  .nav-links a {
+    display: block;
+    width: 100%;
+    padding: 14px 24px;
+    font-size: 1.1rem;
+    text-align: center;   /* change to left if you prefer left-aligned text */
+    color: #E0FF00;       /* restore your link color here */
+  }
+}

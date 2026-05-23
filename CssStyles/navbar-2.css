@@ -1,0 +1,21 @@
+/* ---------- BOTTOM NAVBAR ---------- */
+.bottom-nav {
+    justify-content: right;
+}
+
+.user-actions {
+    display: flex;
+    gap: 20px;
+}
+
+.user-actions a {
+    font-weight: bold;
+    color: #E0FF00;
+    padding: 6px 10px;
+    text-shadow: 0 0 5px #E0FF00, 0 0 10px #FF7F00;
+    transition: 0.2s ease;
+}
+.user-actions a:hover {
+    color: #FF7F00;
+    text-shadow: 0 0 5px #FF7F00, 0 0 10px #FF007F;
+}

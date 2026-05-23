@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Digital Cathedral</title>
+    <link rel="stylesheet" href="/CssStyles/User.css/Cathedral.css">
+</head>
+<body>
+
+    <div id="desktop">
+        <!-- HEADER -->
+        <div id="header">
+            <div class="symbol-icon"></div>
+            <h1>CATHEDRAL OF KNOWLEDGE</h1>
+            <div style="width: 40px;"></div> <!-- Spacer -->
+        </div>
+
+        <div id="main-container">
+            <!-- DASHBOARD VIEW -->
+            <div id="dashboard">
+                <!-- 1. Physical Strength -->
+                <div class="knowledge-card" onclick="openFolder('physical')">
+                    <div class="card-title"><div class="folder-icon"></div> Physical Strength</div>
+                    <div class="card-desc">The body is a fundamental knowledge base. Physical discipline shapes the vessel that carries consciousness through time.</div>
+                    <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 0%"></div></div>
+                </div>
+
+                <!-- 2. Languages -->
+                <div class="knowledge-card" onclick="openFolder('languages')">
+                    <div class="card-title"><div class="folder-icon"></div> Languages</div>
+                    <div class="card-desc">Communication systems as consciousness expansion. French, Chinese, English — bridges to other minds and worlds.</div>
+                    <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 0%"></div></div>
+                </div>
+
+                <!-- 3. Philosophy -->
+                <div class="knowledge-card" onclick="openFolder('philosophy')">
+                    <div class="card-title"><div class="folder-icon"></div> Philosophy</div>
+                    <div class="card-desc">The search for understanding being itself. The questions that drive everything else.</div>
+                    <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 0%"></div></div>
+                </div>
+
+                <!-- 4. Art -->
+                <div class="knowledge-card" onclick="openFolder('art')">
+                    <div class="card-title"><div class="folder-icon"></div> Art</div>
+                    <div class="card-desc">Expression of consciousness and desire. Visual, written, performed manifestations of the inner world.</div>
+                    <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 0%"></div></div>
+                </div>
+
+                <!-- 5. History -->
+                <div class="knowledge-card" onclick="openFolder('history')">
+                    <div class="card-title"><div class="folder-icon"></div> History</div>
+                    <div class="card-desc">Context without which no knots can be tied. The timeline of human becoming.</div>
+                    <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 0%"></div></div>
+                </div>
+
+                <!-- 6. Technology (Active) -->
+                <div class="knowledge-card" onclick="openFolder('technology')">
+                    <div class="card-title"><div class="folder-icon"></div> Technology</div>
+                    <div class="card-desc">The organ that feeds shortcuts to human potential. A powerful tool that sharpens the mind and body when used well.</div>
+                    <!-- Progress loaded via JS -->
+                    <div class="progress-bar-bg"><div class="progress-bar-fill" id="tech-progress-preview" style="width: 4%"></div></div>
+                </div>
+            </div>
+
+            <!-- FOLDER VIEW (Initially Hidden) -->
+            <div id="folder-view">
+                <div class="folder-header">
+                    <button class="back-btn" onclick="closeFolder()">← Back to Desktop</button>
+                    <h2 id="folder-title">TECHNOLOGY</h2>
+                    <p id="folder-desc" style="font-style:italic; color:#444;"></p>
+
+                    <div class="progress-container">
+                        <div class="stats-grid">
+                            <div class="stat-item">Books: <span id="val-books">0</span></div>
+                            <div class="stat-item">Notes: <span id="val-notes">0</span></div>
+                            <div class="stat-item">Projects: <span id="val-projects">0</span></div>
+                            <div class="stat-item" style="margin-left:auto;">Total Points: <span id="val-total">0</span></div>
+                        </div>
+                        <br>
+                        <div class="progress-bar-bg">
+                            <div class="progress-bar-fill" id="main-progress-bar" style="width: 0%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- THE TRINITY READER -->
+                <div id="trinity-reader">
+                    <!-- 1/3 INDEX -->
+                    <div class="panel" id="index-panel">
+                        <div class="panel-header">
+                            INDEX <span class="toggle-btn" onclick="togglePanel('index-panel')">[ x ]</span>
+                        </div>
+                        <div class="panel-content" id="index-content">
+                            <p><em>Index will appear here if available in PDF.</em></p>
+                            <ul style="padding-left: 20px; margin-top: 10px;">
+                                <li>Chapter 1: The Tool</li>
+                                <li>Chapter 2: The Mind</li>
+                                <li>Chapter 3: The Materialization</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- 2/3 VIEWER -->
+                    <div class="panel" id="viewer-panel">
+                        <div class="panel-header" style="background: #333;">
+                            <span style="margin-right:auto;">PDF VIEWER</span>
+                            <span style="font-size: 0.8em; margin-right: 10px;">Page: <span id="page-num">1</span></span>
+                        </div>
+                        <div id="pdf-canvas-container">
+                            <div class="upload-area" id="upload-area">
+                                <p><strong>Drop PDF here or Click to Upload</strong></p>
+                                <p style="font-size: 0.8em;">Maximum size 50MB</p>
+                                <input type="file" id="pdf-upload" accept=".pdf" style="display:none;">
+                            </div>
+                            <canvas id="pdf-render-canvas" style="display:none; box-shadow: 0 0 10px rgba(0,0,0,0.1);"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- 3/3 NOTES -->
+                    <div class="panel" id="notes-panel">
+                        <div class="panel-header">
+                            NOTES <span class="toggle-btn" onclick="togglePanel('notes-panel')">[ x ]</span>
+                        </div>
+                        <div class="panel-content" style="display:flex; flex-direction:column;">
+                            <textarea id="notepad" placeholder="Write your thoughts here..."></textarea>
+                            <button style="padding:10px; border:1px solid black; background:white; cursor:pointer;" onclick="saveNote()">Save Note (+1 Point)</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PDF.js Library (CDN) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+
+    <script>
+        // --- LOGIC ENGINE ---
+
+        // 1. State Management
+        let state = {
+            currentFolder: null,
+            points: {
+                books: 2,
+                notes: 3,
+                projects: 2
+            },
+            targetGoal: 175 // If 7 points = 4%, target is 175.
+        };
+
+        // 2. Initialization
+        function init() {
+            updateProgressUI();
+            setupFileUpload();
+            // Load saved notes if any
+            document.getElementById('notepad').value = localStorage.getItem('tech_notes') || '';
+        }
+
+        // 3. Navigation
+        function openFolder(type) {
+            document.getElementById('dashboard').style.display = 'none';
+            document.getElementById('folder-view').style.display = 'flex';
+            
+            // Set Title based on type
+            const titles = {
+                technology: "TECHNOLOGY",
+                philosophy: "PHILOSOPHY",
+                languages: "LANGUAGES",
+                art: "ART",
+                history: "HISTORY",
+                physical: "PHYSICAL STRENGTH"
+            };
+            
+            const descs = {
+                technology: "The organ that feeds shortcuts to human potential. A powerful tool that sharpens the mind and body when used well.",
+                philosophy: "The search for understanding being itself.",
+                languages: "Communication systems as consciousness expansion.",
+                art: "Expression of consciousness and desire.",
+                history: "Context without which no knots can be tied.",
+                physical: "The body is a fundamental knowledge base."
+            };
+
+            document.getElementById('folder-title').innerText = titles[type] || "FOLDER";
+            document.getElementById('folder-desc').innerText = descs[type] || "";
+            
+            state.currentFolder = type;
+        }
+
+        function closeFolder() {
+            document.getElementById('dashboard').style.display = 'grid';
+            document.getElementById('folder-view').style.display = 'none';
+        }
+
+        // 4. Progress System
+        function updateProgressUI() {
+            const totalPoints = state.points.books + state.points.notes + state.points.projects;
+            const percentage = (totalPoints / state.targetGoal) * 100;
+
+            document.getElementById('val-books').innerText = state.points.books;
+            document.getElementById('val-notes').innerText = state.points.notes;
+            document.getElementById('val-projects').innerText = state.points.projects;
+            document.getElementById('val-total').innerText = totalPoints;
+
+            // Cap at 100% visually
+            const visualPercent = Math.min(percentage, 100);
+            document.getElementById('main-progress-bar').style.width = visualPercent + '%';
+            
+            // Update dashboard preview for Tech
+            document.getElementById('tech-progress-preview').style.width = visualPercent + '%';
+        }
+
+        function saveNote() {
+            const note = document.getElementById('notepad').value;
+            localStorage.setItem('tech_notes', note);
+            
+            // Simple Logic: If note is substantial, add point
+            if(note.length > 20) {
+                state.points.notes++;
+                updateProgressUI();
+                alert("Note Saved! Progress Updated.");
+            } else {
+                alert("Note too short for a point.");
+            }
+        }
+
+        // 5. Panel Toggles (The Curtain)
+        function togglePanel(id) {
+            const panel = document.getElementById(id);
+            panel.classList.toggle('hidden');
+        }
+
+        // 6. PDF Reader Engine (Simplified using PDF.js)
+        function setupFileUpload() {
+            const uploadArea = document.getElementById('upload-area');
+            const fileInput = document.getElementById('pdf-upload');
+            const canvas = document.getElementById('pdf-render-canvas');
+            const ctx = canvas.getContext('2d');
+
+            uploadArea.addEventListener('click', () => fileInput.click());
+
+            uploadArea.addEventListener('dragover', (e) => {
+                e.stopPropagation();
+                e.preventDefault();
+                e.dataTransfer.dropEffect = 'copy';
+            });
+
+            uploadArea.addEventListener('drop', (e) => {
+                e.stopPropagation();
+                e.preventDefault();
+                const files = e.dataTransfer.files; // FileList object.
+                if (files[0].type === 'application/pdf') {
+                    loadPDF(files[0]);
+                }
+            });
+
+            fileInput.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (file) loadPDF(file);
+            });
+
+            function loadPDF(file) {
+                const fileReader = new FileReader();
+                
+                fileReader.onload = function() {
+                    const typedarray = new Uint8Array(this.result);
+                    
+                    pdfjsLib.getDocument(typedarray).promise.then(function(pdf) {
+                        console.log('PDF loaded');
+                        
+                        // Hide upload, show canvas
+                        uploadArea.style.display = 'none';
+                        canvas.style.display = 'block';
+
+                        // Fetch the first page
+                        pdf.getPage(1).then(function(page) {
+                            const scale = 1.5;
+                            const viewport = page.getViewport({ scale: scale });
+
+                            canvas.height = viewport.height;
+                            canvas.width = viewport.width;
+
+                            const renderContext = {
+                                canvasContext: ctx,
+                                viewport: viewport
+                            };
+                            
+                            page.render(renderContext).promise.then(function() {
+                                // Success
+                                // Add Book Point
+                                state.points.books++;
+                                updateProgressUI();
+                                
+                                // Try to extract text for Index (Basic attempt)
+                                page.getTextContent().then(textContent => {
+                                    // Very simple logic: if it finds "Contents" or "Index"
+                                    // In a real app, you'd parse this better.
+                                    updateIndex(textContent);
+                                });
+                            });
+                        });
+                    });
+                };
+                fileReader.readAsArrayBuffer(file);
+            }
+            
+            function updateIndex(textContent) {
+                const indexContent = document.getElementById('index-content');
+                let text = "";
+                textContent.items.forEach(item => {
+                    text += item.str + " ";
+                });
+                // Display raw text for now (In future we can parse Chapter lines)
+                // For now we just indicate index detection.
+                indexContent.innerHTML = `<p><strong>Detected Text Snippet:</strong></p><p style="font-size:0.8em">${text.substring(0, 200)}...</p><p style="margin-top:20px"><em>Index parsing requires specific PDF structure.</em></p>`;
+            }
+        }
+
+        // Initialize App
+        init();
+
+    </script>
+</body>
+</html>
