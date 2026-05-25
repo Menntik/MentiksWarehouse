@@ -1,0 +1,147 @@
+/* ============================= */
+/* MAIN BODY SKELETON (Grid)     */
+/* ============================= */
+
+/* The Container: The Architect */
+.main-container {
+  /* 1. Define the Grid: 3 columns */
+  /* Left column: 1 fraction (small) | Center: 2 fractions (big) | Right: 1 fraction */
+  display: grid;
+  grid-template-columns: 1fr 2.5fr 1fr;
+  
+  /* 2. The Gap: Space between columns */
+  gap: 20px;
+  
+  /* 3. Margins: Keeps elements away from screen edges */
+  padding: 20px 40px; /* Top/Bottom 20px, Left/Right 40px */
+  
+  /* Ensure it takes up available height */
+  min-height: 80vh;
+}
+
+/* ============================= */
+/* THE COLUMNS (The Rooms)       */
+/* ============================= */
+
+/* Common style for the Side Banners */
+.side-banner {
+  background-color: #FFFFE0; /* Pastel Light Yellow */
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px dashed #ccc; /* Visible border to 'touch' the shape */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px; /* Placeholder height so you can see it */
+}
+
+/* Specific style for the Center Column */
+.hero-section {
+  background-color: #D3D3D3; /* Pastel Light Gray */
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid #bbb;
+  
+  /* Centering the content inside */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+/* Placeholder box styling */
+.placeholder-box {
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #555;
+  font-style: italic;
+}
+
+/* Placeholder for the GIF */
+.gif-placeholder {
+  width: 100%;
+  max-width: 300px;
+  height: 150px;
+  background: #333;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  border-radius: 4px;
+}
+
+/* ============================= */
+/* TYPOGRAPHY (Neon Style)       */
+/* ============================= */
+
+.neon-title {
+  font-family: 'Orbitron', sans-serif; /* Ensure this font is linked */
+  font-size: 2.5rem;
+  color: #fff;
+  
+  /* Neon Glow Effect */
+  text-shadow: 
+    0 0 5px #E0FF00, 
+    0 0 10px #FF7F00, 
+    0 0 20px #FF7F00;
+}
+
+.tagline {
+  margin-top: 15px;
+  font-size: 1.2rem;
+  color: #ddd;
+}
+
+/* ============================= */
+/* MOBILE RESPONSIVENESS         */
+/* ============================= */
+
+@media (max-width: 768px) {
+  
+  /* SAFETY NET: Ensure the page doesn't overflow horizontally */
+  body {
+    overflow-x: hidden;
+  }
+
+  /* 1. Adjust the Grid and Spacing */
+  .main-container {
+    grid-template-columns: 1fr 1fr; /* Two equal columns */
+    
+    /* REDUCE spacing on mobile to fit content */
+    padding: 10px; /* Reduced from 15px */
+    gap: 10px;     /* Reduced from 20px */
+  }
+
+  /* 2. PLACEMENT STRATEGY */
+  
+  /* Hero: Full Width Top */
+  .hero-section {
+    grid-column: 1 / -1; 
+    grid-row: 1;
+  }
+
+  /* Banners: Side by Side Bottom */
+  .left-banner {
+    grid-column: 1 / 2;
+    grid-row: 2;
+    /* Ensure banners don't force width wider than screen */
+    min-width: 0; 
+  }
+
+  .right-banner {
+    grid-column: 2 / -1;
+    grid-row: 2;
+    min-width: 0;
+  }
+  
+  /* Fix title size */
+  .neon-title {
+    font-size: 1.8rem;
+  }
+}
