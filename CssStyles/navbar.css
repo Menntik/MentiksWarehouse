@@ -127,4 +127,18 @@ body { font-family: "Roboto Mono", monospace; background: #000; color: #fff; }
     text-align: center;   /* change to left if you prefer left-aligned text */
     color: #E0FF00;       /* restore your link color here */
   }
+   .navbar {
+    padding: 10px 10px; /* Reduced from 20px to 10px to save space */
+  }
+
+  /* FIX: Make the logo smaller so it fits */
+  .logo {
+    font-size: 1rem; /* Reduced from 1.3rem */
+    /* Optional: If it's still too long, shorten the text or hide it */
+  }
+
+  /* Ensure the navbar fills the screen width properly */
+  body {
+    overflow-x: hidden; /* Hides the white space caused by overflow */
+  }
 }
